@@ -211,7 +211,65 @@ export default function AvkomPage(){
           <div className="tiny">Політика конфіденційності • Публічна оферта</div>
         </div>
       </footer>
-      
+
+      {/* ====== Styles (styled-jsx global) ====== */}
+      <style jsx global>{`
+        :root{--bg:#000;--text:#fff;--muted:#bfbfbf;--card:#0f0f10;--line:#1c1c1f;--brand:#ffffff;--accent:#ffffff;--accent2:#d32f2f}
+        *{box-sizing:border-box}
+        html,body,#__next{height:100%}
+        body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;}
+        a{color:inherit;text-decoration:none}
+        img{max-width:100%;display:block}
+        .container{max-width:1120px;margin:0 auto;padding:0 16px}
+        .section{padding:64px 0}
+        .dim{background:rgba(255,255,255,0.04);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+        .row{display:flex;gap:12px}
+        .between{justify-content:space-between}
+        .center{align-items:center}
+        .wrap{flex-wrap:wrap}
+        .gap{gap:12px}
+        .mt{margin-top:12px}
+        .stack{display:grid;gap:10px}
+        .grid{display:grid;gap:24px}
+        .heroGrid{grid-template-columns:1fr;}
+        .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
+        .cards.three{grid-template-columns:repeat(1,minmax(0,1fr))}
+        .two{grid-template-columns:1fr;}
+        @media(min-width:768px){
+          .heroGrid{grid-template-columns:1.1fr 0.9fr}
+          .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+          .cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+          .two{grid-template-columns:1fr 1fr}
+        }
+        .header{position:sticky;top:0;z-index:50;background:rgba(0,0,0,0.8);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid var(--line)}
+        .nav{display:none;gap:18px}
+        .hamburger{background:transparent;border:1px solid var(--line);border-radius:10px;color:#fff;padding:6px 10px}
+        @media(min-width:768px){.nav{display:flex} .hamburger{display:none}}
+        .mobileNav{border-top:1px solid var(--line);padding:12px 16px;display:grid;gap:8px;background:#000}
+        .logoBox{width:48px;height:48px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+        .logoBox img{width:100%;height:100%;object-fit:cover}
+        .brand{font-weight:800;letter-spacing:.3px}
+        .muted{color:var(--muted)}
+        .tiny{font-size:12px}
+        .h1{font-size:36px;line-height:1.2;margin:0}
+        .h2{font-size:28px;margin:0 0 8px}
+        .h3{font-size:18px;margin:0 0 4px}
+        .lead{margin:16px 0 20px;color:#ddd;font-size:18px}
+        .btn{padding:10px 16px;border-radius:14px;border:1px solid var(--line);display:inline-block}
+        .btn.primary{background:#fff;color:#000;border-color:#fff;font-weight:700}
+        .btn.outline{background:transparent}
+        .badge{padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.06);font-size:12px}
+        .card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px}
+        .media{aspect-ratio:16/10;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;display:grid;place-items:center;overflow:hidden}
+        .logoInCard{width:120px;height:auto;opacity:.95}
+        .glow{position:absolute;inset:-20px;border-radius:24px;background:rgba(220,0,0,.18);filter:blur(30px);}
+        .heroCard{position:relative}
+        .list{margin:12px 0 0 0;padding-left:20px}
+        .list li{margin:4px 0}
+        .qr{width:128px;height:128px}
+        .footer{padding:28px 0;color:#bdbdbd}
+        .badges{margin-top:12px}
+      `}</style>
     </div>
   );
 }

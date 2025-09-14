@@ -81,7 +81,7 @@ export default function AvkomPage(){
             <div className="card">
               <div className="media">
                 {/* ЛОГОТИП у віконці */}
-                <img src="/image1.png" alt="Avkom логотип" className="logoInCard"/>
+                <img src="/image1.png.png" alt="Avkom логотип" className="logoInCard"/>
               </div>
               <div className="row gap badges">
                 <span className="badge">Гарантія</span>
@@ -261,7 +261,7 @@ export default function AvkomPage(){
         .badge{padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.06);font-size:12px}
         .card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px}
         .media{aspect-ratio:16/10;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;display:grid;place-items:center;overflow:hidden}
-        .logoInCard{width:120px;height:auto;opacity:.95}
+        .logoInCard{height:auto;opacity:.95}
         .glow{position:absolute;inset:-20px;border-radius:24px;background:rgba(220,0,0,.18);filter:blur(30px);}
         .heroCard{position:relative}
         .list{margin:12px 0 0 0;padding-left:20px}

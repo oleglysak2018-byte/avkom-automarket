@@ -155,7 +155,7 @@ export default function AvkomPage(){
       <section id="map" className="section dim">
         <div className="container grid two">
           <div className="card center">
-            <img src="/qr_avkom.png" alt="Avkom QR код" className="qr"/>
+            <img src="/qr_avcom.png" alt="Avkom QR код" className="qr"/>
             <div className="muted tiny">Скануйте QR-код для навігації</div>
           </div>
           <div>

@@ -35,7 +35,7 @@ export default function AvkomPage(){
         <div className="container row between center">
           <a href="#home" className="row center gap">
             <div className="logoBox">
-              <img src="/uploads/ChatGPT Image 22 серп. 2025 р., 18_13_34.png" alt="Avkom логотип"/>
+              <img src="/logo.png" alt="Avkom логотип"/>
             </div>
             <div>
               <div className="brand">Avkom Автозапчастини</div>
@@ -81,7 +81,7 @@ export default function AvkomPage(){
             <div className="card">
               <div className="media">
                 {/* ЛОГОТИП у віконці */}
-                <img src="/uploads/ChatGPT Image 22 серп. 2025 р., 18_13_34.png" alt="Avkom логотип" className="logoInCard"/>
+                <img src="/logo.png" alt="Avkom логотип" className="logoInCard"/>
               </div>
               <div className="row gap badges">
                 <span className="badge">Гарантія</span>

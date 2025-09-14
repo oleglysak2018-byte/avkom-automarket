@@ -81,7 +81,7 @@ export default function AvkomPage(){
             <div className="card">
               <div className="media">
                 {/* ЛОГОТИП у віконці */}
-                <img src="/logo.png" alt="Avkom логотип" className="logoInCard"/>
+                <img src="/image1.png.png" alt="Avkom логотип" className="logoInCard"/>
               </div>
               <div className="row gap badges">
                 <span className="badge">Гарантія</span>

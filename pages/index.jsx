@@ -257,25 +257,3 @@ function FeedbackForm({phones, email}){
     </form>
   );
 }
-
-// ===== Simple Runtime Tests =====
-function DevTests({phones}){
-  const cases = [
-    { name: "WhatsApp URL формування", got: buildWhatsUrl(phones.main), expect: "https://wa.me/380978436304" },
-    { name: "Viber URL формування",   got: buildViberUrl(phones.main),  expect: "viber://chat?number=%2B380978436304" },
-    { name: "Telegram-direct (з номером)", got: buildTelegramDirect(phones.main), expect: "https://t.me/+380978436304" },
-  ];
-  return (
-    <div className="container">
-      <div className="card tiny muted" style={{marginTop:24}}>
-        <div className="brand" style={{fontSize:12, marginBottom:8}}>DEV TESTS</div>
-        <ul>
-          {cases.map(c=>{
-            const ok = c.got === c.expect;
-            return <li key={c.name} style={{color: ok?"#6ee7a8":"#fda4af"}}>{ok?"PASS":"FAIL"} — {c.name}: <span style={{color:'#fff'}}>{c.got}</span> (очікувалось: {c.expect})</li>
-          })}
-        </ul>
-      </div>
-    </div>
-  );
-}

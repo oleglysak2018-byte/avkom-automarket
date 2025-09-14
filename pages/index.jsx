@@ -259,7 +259,7 @@ export default function AvkomPage(){
         .btn.primary{background:#fff;color:#000;border-color:#fff;font-weight:700}
         .btn.outline{background:transparent}
         .badge{padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.06);font-size:12px}
-        .card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px}
+        .card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px;text-align: -webkit-center;}
         .media{aspect-ratio:16/10;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;display:grid;place-items:center;overflow:hidden}
         .logoInCard{height:auto;opacity:.95}
         .glow{position:absolute;inset:-20px;border-radius:24px;background:rgba(220,0,0,.18);filter:blur(30px);}

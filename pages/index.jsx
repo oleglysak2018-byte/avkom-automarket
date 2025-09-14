@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 
-// ---------- Helpers (also used by tests) ----------
+// ===== Helpers =====
 function buildWhatsUrl(phone){
   return `https://wa.me/${String(phone||"").replace(/\+/g, "")}`;
 }
@@ -8,253 +8,280 @@ function buildViberUrl(phone){
   return `viber://chat?number=${encodeURIComponent(String(phone||""))}`;
 }
 function buildTelegramDirect(usernameOrPhone){
-  // якщо є username, краще використовувати його
-  if((usernameOrPhone||"").startsWith("@")){
-    return `https://t.me/${usernameOrPhone.slice(1)}`;
-  }
+  if((usernameOrPhone||"").startsWith("@")) return `https://t.me/${usernameOrPhone.slice(1)}`;
   return `https://t.me/${String(usernameOrPhone||"")}`;
 }
 
-export default function AvcomPartsLanding(){
+export default function AvkomPage(){
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // Контакти (оновлено)
   const phones = useMemo(()=>({
-    main: "+380978436304", // +38 097 843 63 04
+    main: "+380978436304",
     alt: "+380985843977",
   }),[]);
   const email = "marketavcom2008@gmail.com";
-  const instagram = "https://instagram.com/avkom_avtozapchastini.lv"; // @avkom_avtozapchastini.lv
-  const facebook = "https://facebook.com/%D0%90%D0%B2%D0%BA%D0%BE%D0%BC%20%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD"; // Авком Автомагазин
-
+  const instagram = "https://instagram.com/avkom_avtozapchastini.lv";
+  const facebook = "https://facebook.com/%D0%90%D0%B2%D0%BA%D0%BE%D0%BC%20%D0%90%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD";
   const mapUrl = "https://maps.app.goo.gl/vM5FGaa4RZTkNLXN9?g_st=ic";
 
   const whatsapp = buildWhatsUrl(phones.main);
   const viber = buildViberUrl(phones.main);
-  const telegram = buildTelegramDirect(phones.main); // залишаємо за номером, якщо дасте @ — підставлю
+  const telegram = buildTelegramDirect(phones.main);
 
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-black/80 backdrop-blur border-b border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl overflow-hidden border border-white/15">
-              <img src="/uploads/ChatGPT Image 22 серп. 2025 р., 18_13_34.png" alt="Avkom логотип" className="w-full h-full object-cover"/>
+    <div className="page">
+      {/* HEADER */}
+      <header className="header">
+        <div className="container row between center">
+          <a href="#home" className="row center gap">
+            <div className="logoBox">
+              <img src="/uploads/ChatGPT Image 22 серп. 2025 р., 18_13_34.png" alt="Avkom логотип"/>
             </div>
             <div>
-              <div className="text-xl font-extrabold tracking-wide">Avkom Автозапчастини</div>
-              <div className="text-xs text-white/60 -mt-1">Магазин • Львів • Доставка по Україні</div>
+              <div className="brand">Avkom Автозапчастини</div>
+              <div className="muted tiny">Магазин • Львів • Доставка по Україні</div>
             </div>
           </a>
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a href="#catalog" className="hover:text-white/80">Категорії</a>
-            <a href="#services" className="hover:text-white/80">Послуги</a>
-            <a href="#feedback" className="hover:text-white/80">Зворотній зв’язок</a>
-            <a href="#contacts" className="hover:text-white/80">Контакти</a>
-            <a href="#map" className="hover:text-white/80">Мапа</a>
-            <a href={`tel:${phones.main}`} className="px-4 py-2 rounded-2xl bg-white text-black font-semibold">Подзвонити</a>
+          <nav className="nav">
+            <a href="#catalog">Категорії</a>
+            <a href="#services">Послуги</a>
+            <a href="#feedback">Зворотній зв’язок</a>
+            <a href="#contacts">Контакти</a>
+            <a href="#map">Мапа</a>
+            <a href={`tel:${phones.main}`} className="btn primary">Подзвонити</a>
           </nav>
-          <button onClick={()=>setMobileOpen(!mobileOpen)} className="md:hidden p-2 rounded-xl bg-white/10 border border-white/10" aria-label="Меню">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-          </button>
+          <button className="hamburger" aria-label="Меню" onClick={()=>setMobileOpen(!mobileOpen)}>☰</button>
         </div>
         {mobileOpen && (
-          <div className="md:hidden border-t border-white/10 bg-black/95">
-            <div className="max-w-6xl mx-auto px-4 py-4 grid gap-3 text-sm">
-              <a onClick={()=>setMobileOpen(false)} href="#catalog" className="py-2">Категорії</a>
-              <a onClick={()=>setMobileOpen(false)} href="#services" className="py-2">Послуги</a>
-              <a onClick={()=>setMobileOpen(false)} href="#feedback" className="py-2">Зворотній зв’язок</a>
-              <a onClick={()=>setMobileOpen(false)} href="#contacts" className="py-2">Контакти</a>
-              <a onClick={()=>setMobileOpen(false)} href="#map" className="py-2">Мапа</a>
-              <a href={`tel:${phones.main}`} className="py-2 px-4 rounded-xl bg-white text-black font-semibold text-center">Подзвонити</a>
-            </div>
+          <div className="mobileNav">
+            <a onClick={()=>setMobileOpen(false)} href="#catalog">Категорії</a>
+            <a onClick={()=>setMobileOpen(false)} href="#services">Послуги</a>
+            <a onClick={()=>setMobileOpen(false)} href="#feedback">Зворотній зв’язок</a>
+            <a onClick={()=>setMobileOpen(false)} href="#contacts">Контакти</a>
+            <a onClick={()=>setMobileOpen(false)} href="#map">Мапа</a>
+            <a href={`tel:${phones.main}`} className="btn primary">Подзвонити</a>
           </div>
         )}
       </header>
 
-      {/* Hero (з логотипом у віконці) */}
-      <section id="home" className="relative">
-        <div className="max-w-6xl mx-auto px-4 py-14 md:py-20 grid md:grid-cols-2 gap-10 items-center">
+      {/* HERO */}
+      <section id="home" className="section">
+        <div className="container grid heroGrid">
           <div>
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight">Інтернет-магазин Avkom Автозапчастини</h1>
-            <p className="mt-4 text-white/80 text-lg">Масла, фільтри, гальмівні системи, підвіска, електрика, кузовні деталі. Підбір за VIN, консультації та швидка доставка.</p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href="#catalog" className="px-5 py-3 rounded-2xl bg-white text-black font-semibold">Дивитися категорії</a>
-              <a href={whatsapp} target="_blank" rel="noreferrer" className="px-5 py-3 rounded-2xl border border-white/20">Написати в WhatsApp</a>
-              <a href={mapUrl} target="_blank" rel="noreferrer" className="px-5 py-3 rounded-2xl border border-white/20">Самовивіз у Львові</a>
+            <h1 className="h1">Інтернет-магазин Avkom Автозапчастини</h1>
+            <p className="lead">Масла, фільтри, гальмівні системи, підвіска, електрика, кузовні деталі. Підбір за VIN, консультації та швидка доставка.</p>
+            <div className="row wrap gap">
+              <a href="#catalog" className="btn primary">Дивитися категорії</a>
+              <a href={whatsapp} target="_blank" rel="noreferrer" className="btn outline">Написати в WhatsApp</a>
+              <a href={mapUrl} target="_blank" rel="noreferrer" className="btn outline">Самовивіз у Львові</a>
             </div>
           </div>
-          <div className="relative">
-            <div className="absolute -inset-6 rounded-3xl bg-red-600/20 blur-2xl"/>
-            <div className="relative rounded-3xl border border-white/10 p-6 bg-gradient-to-b from-red-600/10 to-transparent">
-              <div className="aspect-[16/10] rounded-2xl bg-white/5 grid place-items-center border border-white/10 overflow-hidden">
-                {/* логотип у віконці */}
-                <img src="/uploads/ChatGPT Image 22 серп. 2025 р., 18_13_34.png" alt="Avkom логотип" className="w-32 h-auto"/>
+          <div className="heroCard">
+            <div className="glow"></div>
+            <div className="card">
+              <div className="media">
+                {/* ЛОГОТИП у віконці */}
+                <img src="/uploads/ChatGPT Image 22 серп. 2025 р., 18_13_34.png" alt="Avkom логотип" className="logoInCard"/>
               </div>
-              <div className="mt-4 grid grid-cols-3 gap-3 text-xs text-white/70">
-                <Badge>Гарантія</Badge>
-                <Badge>Чесні ціни</Badge>
-                <Badge>Доставка 1–2 дні</Badge>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Каталог (повернено повний перелік) */}
-      <section id="catalog" className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-extrabold">Категорії товарів</h2>
-        <p className="text-white/70 mt-2">Популярні бренди масел: <b>Shell</b>, <b>Mobil</b>, <b>ELF</b>, <b>Total Quartz</b>. Фільтри: повітряні, масляні, паливні, салону.</p>
-        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <Cat title="Моторні масла" items={["Shell","Mobil","ELF","Total Quartz","Liqui Moly"]} desc="Підбір в’язкості та допусків під ваш двигун"/>
-          <Cat title="Фільтри" items={["Повітряні","Масляні","Паливні","Салону","Салонні вугільні"]} desc="MANN, MAHLE/Knecht, Filtron та ін."/>
-          <Cat title="Гальмівна система" items={["Колодки","Диски","Супорти","Гальмівна рідина","Троси ручника"]} desc="Підбір під стиль їзди та вагу авто"/>
-          <Cat title="Підвіска/ходова" items={["Амортизатори","Ричаги","Сайлентблоки","Кульові опори","Наконечники"]} desc="Комплектація осі, комплект ремонтний"/>
-          <Cat title="Електрика" items={["Акумулятори","Датчики","Свічки/котушки","Стартер/генератор","Лампи"]} desc="Перевірені бренди та гарантія"/>
-          <Cat title="Кузов/світло" items={["Фари (перед/зад)","Бампери","Решітки","Дзеркала","Підкрилки"]} desc="Нові та під відновлення"/>
-          <Cat title="Рідини/хімія" items={["Омивачі","Антифриз","Гальмівна","ATF/PSF","Аддитиви"]} desc="Сертифіковані постачання"/>
-          <Cat title="Двірники та аксесуари" items={["Щітки склоочисника","Ароматизатори","Килимки","Чохли","Зарядні дроти"]} desc="Швидкий самовивіз"/>
-        </div>
-      </section>
-
-      {/* Послуги */}
-      <section id="services" className="bg-white/5 border-y border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-extrabold">Послуги та підбір</h2>
-          <div className="mt-8 grid md:grid-cols-3 gap-6 text-sm text-white/80">
-            <Svc title="Підбір за VIN" items={["Повний каталожний підбір","Оригінали та аналоги","Гарантія сумісності"]}/>
-            <Svc title="Доставка" items={["Нова Пошта по Україні","Кур’єр у Львові","Самовивіз: Богданівська, 44"]}/>
-            <Svc title="СТО Авком" items={["Діагностика","Планове ТО","Ходова, гальма, електрика, вихлоп"]}/>
-          </div>
-        </div>
-      </section>
-
-      {/* Зворотній зв’язок */}
-      <section id="feedback" className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-extrabold">Зворотній зв’язок</h2>
-        <p className="text-white/70 mt-2">Опишіть потрібні запчастини (VIN, марка/модель/рік, двигун). Ми підберемо та відповімо у месенджері.</p>
-        <FeedbackForm phones={phones} email={email} />
-      </section>
-
-      {/* Як нас знайти (QR) */}
-      <section id="map" className="bg-white/5 border-y border-white/10">
-        <div className="max-w-6xl mx-auto px-4 py-16">
-          <h2 className="text-3xl font-extrabold">Як нас знайти</h2>
-          <div className="mt-6 grid md:grid-cols-2 gap-6 items-start">
-            <div className="aspect-[16/10] rounded-2xl bg-white/5 border border-white/10 grid place-items-center overflow-hidden">
-              <div className="flex flex-col items-center gap-4">
-                <img src="/qr-avkom.png" alt="Avkom QR код" className="w-32 h-32"/>
-                <span className="text-xs text-white/60">Скануйте QR-код для навігації</span>
-              </div>
-            </div>
-            <div className="grid gap-3 text-sm">
-              <Step>Поверніть з вул. Липинського на Богданівську</Step>
-              <Step>Рухайтесь до буд. 44 (територія авторинку)</Step>
-              <Step>Телефонуйте — зорієнтуємо при в’їзді</Step>
-              <div className="mt-2 flex flex-wrap gap-2">
-                <a href={mapUrl} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-xl bg-white text-black font-semibold inline-block">Відкрити маршрут у Google Maps</a>
-                <a href={whatsapp} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-xl border border-green-500/40 inline-block">WhatsApp</a>
-                <a href={telegram} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-xl border border-sky-500/40 inline-block">Telegram</a>
-                <a href={viber} className="px-4 py-2 rounded-xl border border-purple-500/40 inline-block">Viber</a>
+              <div className="row gap badges">
+                <span className="badge">Гарантія</span>
+                <span className="badge">Чесні ціни</span>
+                <span className="badge">Доставка 1–2 дні</span>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Контакти (повний блок) */}
-      <section id="contacts" className="max-w-6xl mx-auto px-4 py-16">
-        <h2 className="text-3xl font-extrabold">Контакти</h2>
-        <div className="mt-6 grid md:grid-cols-2 gap-8">
-          <div className="rounded-3xl border border-white/10 p-6">
-            <h3 className="font-bold text-lg">Avkom Автозапчастини</h3>
-            <p className="text-white/70 mt-2">м. Львів, вул. Богданівська, 44</p>
-            <p className="text-white/70">Пн–Пт 8:30–18:00, Сб 9:00–15:00</p>
-            <div className="mt-4 grid gap-2">
-              <a href={`tel:${phones.main}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white text-black font-semibold w-max">📞 {phones.main}</a>
-              <a href={`tel:${phones.alt}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 w-max">📞 {phones.alt}</a>
-              <a href={`mailto:${email}`} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 w-max">✉️ {email}</a>
-              <a href={whatsapp} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-green-500/40 w-max">💬 WhatsApp</a>
-              <a href={telegram} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-sky-500/40 w-max">💬 Telegram</a>
-              <a href={viber} className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-purple-500/40 w-max">💬 Viber</a>
-              <a href={instagram} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-pink-500/40 w-max">📷 Instagram</a>
-              <a href={facebook} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-blue-500/40 w-max">📘 Facebook</a>
+      {/* CATALOG */}
+      <section id="catalog" className="section">
+        <div className="container">
+          <h2 className="h2">Категорії товарів</h2>
+          <p className="muted">Популярні бренди масел: <b>Shell</b>, <b>Mobil</b>, <b>ELF</b>, <b>Total Quartz</b>. Фільтри: повітряні, масляні, паливні, салону.</p>
+          <div className="grid cards">
+            {[
+              {t:"Моторні масла", d:"Підбір в’язкості та допусків під ваш двигун", i:["Shell","Mobil","ELF","Total Quartz","Liqui Moly"]},
+              {t:"Фільтри", d:"MANN, MAHLE/Knecht, Filtron та ін.", i:["Повітряні","Масляні","Паливні","Салону","Салонні вугільні"]},
+              {t:"Гальмівна система", d:"Підбір під стиль їзди та вагу авто", i:["Колодки","Диски","Супорти","Гальмівна рідина","Троси ручника"]},
+              {t:"Підвіска/ходова", d:"Комплектація осі, комплект ремонтний", i:["Амортизатори","Ричаги","Сайлентблоки","Кульові опори","Наконечники"]},
+              {t:"Електрика", d:"Перевірені бренди та гарантія", i:["Акумулятори","Датчики","Свічки/котушки","Стартер/генератор","Лампи"]},
+              {t:"Кузов/світло", d:"Нові та під відновлення", i:["Фари (перед/зад)","Бампери","Решітки","Дзеркала","Підкрилки"]},
+              {t:"Рідини/хімія", d:"Сертифіковані постачання", i:["Омивачі","Антифриз","Гальмівна","ATF/PSF","Аддитиви"]},
+              {t:"Двірники та аксесуари", d:"Швидкий самовивіз", i:["Щітки склоочисника","Ароматизатори","Килимки","Чохли","Зарядні дроти"]},
+            ].map(cat=> (
+              <div key={cat.t} className="card">
+                <h3 className="h3">{cat.t}</h3>
+                <div className="muted tiny">{cat.d}</div>
+                <ul className="list">
+                  {cat.i.map(it=> <li key={it}>{it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SERVICES */}
+      <section id="services" className="section dim">
+        <div className="container">
+          <h2 className="h2">Послуги та підбір</h2>
+          <div className="grid cards three">
+            {[
+              {t:"Підбір за VIN", i:["Повний каталожний підбір","Оригінали та аналоги","Гарантія сумісності"]},
+              {t:"Доставка", i:["Нова Пошта по Україні","Кур’єр у Львові","Самовивіз: Богданівська, 44"]},
+              {t:"СТО Авком", i:["Діагностика","Планове ТО","Ходова, гальма, електрика, вихлоп"]}
+            ].map(s=> (
+              <div key={s.t} className="card">
+                <h3 className="h3">{s.t}</h3>
+                <ul className="list">
+                  {s.i.map(it=> <li key={it}>{it}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FEEDBACK */}
+      <section id="feedback" className="section">
+        <div className="container">
+          <h2 className="h2">Зворотній зв’язок</h2>
+          <p className="muted">Опишіть потрібні запчастини (VIN, марка/модель/рік, двигун). Ми підберемо та відповімо у месенджері.</p>
+          <FeedbackForm phones={phones} email={email} />
+        </div>
+      </section>
+
+      {/* MAP */}
+      <section id="map" className="section dim">
+        <div className="container grid two">
+          <div className="card center">
+            <img src="/qr-avkom.png" alt="Avkom QR код" className="qr"/>
+            <div className="muted tiny">Скануйте QR-код для навігації</div>
+          </div>
+          <div>
+            <ul className="list">
+              <li>Поверніть з вул. Липинського на Богданівську</li>
+              <li>Рухайтесь до буд. 44 (територія авторинку)</li>
+              <li>Телефонуйте — зорієнтуємо при в’їзді</li>
+            </ul>
+            <div className="row wrap gap mt">
+              <a href={mapUrl} target="_blank" rel="noreferrer" className="btn primary">Відкрити маршрут у Google Maps</a>
+              <a href={whatsapp} target="_blank" rel="noreferrer" className="btn outline">WhatsApp</a>
+              <a href={telegram} target="_blank" rel="noreferrer" className="btn outline">Telegram</a>
+              <a href={viber} className="btn outline">Viber</a>
             </div>
           </div>
-          <div className="rounded-3xl border border-white/10 p-6">
-            <h3 className="font-bold text-lg">Оплата та доставка</h3>
-            <ul className="mt-3 grid gap-2 text-white/70 text-sm list-disc pl-5">
+        </div>
+      </section>
+
+      {/* CONTACTS */}
+      <section id="contacts" className="section">
+        <div className="container grid two">
+          <div className="card">
+            <h3 className="h3">Avkom Автозапчастини</h3>
+            <div className="muted">м. Львів, вул. Богданівська, 44</div>
+            <div className="muted">Пн–Пт 8:30–18:00, Сб 9:00–15:00</div>
+            <div className="stack mt">
+              <a href={`tel:${phones.main}`} className="btn primary">📞 {phones.main}</a>
+              <a href={`tel:${phones.alt}`} className="btn outline">📞 {phones.alt}</a>
+              <a href={`mailto:${email}`} className="btn outline">✉️ {email}</a>
+              <a href={whatsapp} target="_blank" rel="noreferrer" className="btn outline">💬 WhatsApp</a>
+              <a href={telegram} target="_blank" rel="noreferrer" className="btn outline">💬 Telegram</a>
+              <a href={viber} className="btn outline">💬 Viber</a>
+              <a href={instagram} target="_blank" rel="noreferrer" className="btn outline">📷 Instagram</a>
+              <a href={facebook} target="_blank" rel="noreferrer" className="btn outline">📘 Facebook</a>
+            </div>
+          </div>
+          <div className="card">
+            <h3 className="h3">Оплата та доставка</h3>
+            <ul className="list">
               <li>Оплата карткою, готівкою, безготівково (ФОП)</li>
               <li>Відправка Новою Поштою у день замовлення (до 16:00)</li>
               <li>Самовивіз зі складу: вул. Богданівська, 44</li>
-              <li>Повернення/обмін згідно з Законом України «Про захист прав споживачів»</li>
+              <li>Повернення/обмін згідно із Законом України «Про захист прав споживачів»</li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-10 text-center text-white/60">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-3">
-            <div>© {new Date().getFullYear()} Avkom Автозапчастини. Усі права захищено.</div>
-            <div className="text-xs">Політика конфіденційності • Публічна оферта</div>
-          </div>
+      {/* FOOTER */}
+      <footer className="footer">
+        <div className="container row between center">
+          <div>© {new Date().getFullYear()} Avkom Автозапчастини. Усі права захищено.</div>
+          <div className="tiny">Політика конфіденційності • Публічна оферта</div>
         </div>
       </footer>
 
-      {/* Тести */}
+      {/* DEV TESTS */}
       <DevTests phones={phones} />
+
+      {/* ====== Styles (styled-jsx global) ====== */}
+      <style jsx global>{`
+        :root{--bg:#000;--text:#fff;--muted:#bfbfbf;--card:#0f0f10;--line:#1c1c1f;--brand:#ffffff;--accent:#ffffff;--accent2:#d32f2f}
+        *{box-sizing:border-box}
+        html,body,#__next{height:100%}
+        body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;}
+        a{color:inherit;text-decoration:none}
+        img{max-width:100%;display:block}
+        .container{max-width:1120px;margin:0 auto;padding:0 16px}
+        .section{padding:64px 0}
+        .dim{background:rgba(255,255,255,0.04);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+        .row{display:flex;gap:12px}
+        .between{justify-content:space-between}
+        .center{align-items:center}
+        .wrap{flex-wrap:wrap}
+        .gap{gap:12px}
+        .mt{margin-top:12px}
+        .stack{display:grid;gap:10px}
+        .grid{display:grid;gap:24px}
+        .heroGrid{grid-template-columns:1fr;}
+        .cards{grid-template-columns:repeat(1,minmax(0,1fr))}
+        .cards.three{grid-template-columns:repeat(1,minmax(0,1fr))}
+        .two{grid-template-columns:1fr;}
+        @media(min-width:768px){
+          .heroGrid{grid-template-columns:1.1fr 0.9fr}
+          .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+          .cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+          .two{grid-template-columns:1fr 1fr}
+        }
+        .header{position:sticky;top:0;z-index:50;background:rgba(0,0,0,0.8);backdrop-filter:saturate(150%) blur(8px);border-bottom:1px solid var(--line)}
+        .nav{display:none;gap:18px}
+        .hamburger{background:transparent;border:1px solid var(--line);border-radius:10px;color:#fff;padding:6px 10px}
+        @media(min-width:768px){.nav{display:flex} .hamburger{display:none}}
+        .mobileNav{border-top:1px solid var(--line);padding:12px 16px;display:grid;gap:8px;background:#000}
+        .logoBox{width:48px;height:48px;border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+        .logoBox img{width:100%;height:100%;object-fit:cover}
+        .brand{font-weight:800;letter-spacing:.3px}
+        .muted{color:var(--muted)}
+        .tiny{font-size:12px}
+        .h1{font-size:36px;line-height:1.2;margin:0}
+        .h2{font-size:28px;margin:0 0 8px}
+        .h3{font-size:18px;margin:0 0 4px}
+        .lead{margin:16px 0 20px;color:#ddd;font-size:18px}
+        .btn{padding:10px 16px;border-radius:14px;border:1px solid var(--line);display:inline-block}
+        .btn.primary{background:#fff;color:#000;border-color:#fff;font-weight:700}
+        .btn.outline{background:transparent}
+        .badge{padding:6px 10px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.06);font-size:12px}
+        .card{border:1px solid var(--line);background:var(--card);border-radius:18px;padding:16px}
+        .media{aspect-ratio:16/10;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;display:grid;place-items:center;overflow:hidden}
+        .logoInCard{width:120px;height:auto;opacity:.95}
+        .glow{position:absolute;inset:-20px;border-radius:24px;background:rgba(220,0,0,.18);filter:blur(30px);}
+        .heroCard{position:relative}
+        .list{margin:12px 0 0 0;padding-left:20px}
+        .list li{margin:4px 0}
+        .qr{width:128px;height:128px}
+        .footer{padding:28px 0;color:#bdbdbd}
+        .badges{margin-top:12px}
+      `}</style>
     </div>
   );
 }
 
-function Dot(){
-  return <span className="inline-block w-1.5 h-1.5 rounded-full bg-white/70" aria-hidden="true"/>;
-}
-
-function Badge({children}){
-  return <div className="px-3 py-1 rounded-xl bg-white/10 border border-white/10 w-max">{children}</div>;
-}
-
-function Cat({title, items, desc}){
-  return (
-    <div className="rounded-3xl border border-white/10 p-6 bg-white/5">
-      <h3 className="font-bold text-lg">{title}</h3>
-      <div className="mt-1 text-white/60 text-sm">{desc}</div>
-      <ul className="mt-3 grid gap-2 text-white/70 text-sm list-disc pl-5">
-        {items.map((it)=> <li key={it}>{it}</li>)}
-      </ul>
-    </div>
-  );
-}
-
-function Svc({title, items}){
-  return (
-    <div className="rounded-3xl border border-white/10 p-6 bg-white/5">
-      <h3 className="font-bold text-lg">{title}</h3>
-      <ul className="mt-3 grid gap-2 text-white/70 text-sm list-disc pl-5">
-        {items.map((it)=> <li key={it}>{it}</li>)}
-      </ul>
-    </div>
-  );
-}
-
-function Step({children}){
-  return (
-    <div className="flex items-start gap-3">
-      <div className="mt-1 w-5 h-5 rounded-xl bg-white/10 grid place-items-center border border-white/10">→</div>
-      <div className="text-white/80">{children}</div>
-    </div>
-  );
-}
-
+// ===== Feedback Form =====
 function FeedbackForm({phones, email}){
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [text, setText] = useState("");
-
   const whatsMsg = (()=>{
     const base = `Привіт, Avkom! Мене звати ${name||"(ім’я)"}. Телефон: ${phone||"(номер)"}. Потрібні запчастини: ${text||"(опишіть)"}.`;
     return `${buildWhatsUrl(phones.main)}?text=${encodeURIComponent(base)}`;
@@ -263,56 +290,52 @@ function FeedbackForm({phones, email}){
     const base = `Привіт, Avkom! Мене звати ${name||"(ім’я)"}. Телефон: ${phone||"(номер)"}. Потрібні запчастини: ${text||"(опишіть)"}.`;
     return `https://t.me/share/url?url=${encodeURIComponent("https://example.com")}&text=${encodeURIComponent(base)}`;
   })();
-
   return (
-    <form className="rounded-3xl border border-white/10 p-6 grid gap-4 max-w-3xl">
-      <div className="grid md:grid-cols-2 gap-4">
-        <div className="grid gap-1">
-          <label className="text-sm text-white/70">Ім’я</label>
-          <input value={name} onChange={e=>setName(e.target.value)} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 outline-none" placeholder="Ваше ім’я"/>
-        </div>
-        <div className="grid gap-1">
-          <label className="text-sm text-white/70">Телефон</label>
-          <input value={phone} onChange={e=>setPhone(e.target.value)} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 outline-none" placeholder="+380…"/>
-        </div>
+    <form className="card stack" onSubmit={(e)=>e.preventDefault()}>
+      <div className="grid two">
+        <label className="stack">
+          <span className="tiny muted">Ім’я</span>
+          <input value={name} onChange={e=>setName(e.target.value)} className="input" placeholder="Ваше ім’я"/>
+        </label>
+        <label className="stack">
+          <span className="tiny muted">Телефон</span>
+          <input value={phone} onChange={e=>setPhone(e.target.value)} className="input" placeholder="+380…"/>
+        </label>
       </div>
-      <div className="grid gap-1">
-        <label className="text-sm text-white/70">Що потрібно? (VIN/марка/модель/рік, двигун)</label>
-        <textarea value={text} onChange={e=>setText(e.target.value)} rows={4} className="bg-white/5 border border-white/10 rounded-xl px-3 py-2 outline-none" placeholder="Наприклад: BMW X5 F15 2016, 3.0d, потрібно масло 5W-30 і фільтри"/>
+      <label className="stack">
+        <span className="tiny muted">Що потрібно? (VIN/марка/модель/рік, двигун)</span>
+        <textarea rows="4" value={text} onChange={e=>setText(e.target.value)} className="input" placeholder="Наприклад: BMW X5 F15 2016, 3.0d, потрібно масло 5W-30 і фільтри"/>
+      </label>
+      <div className="row wrap gap">
+        <a href={whatsMsg} target="_blank" rel="noreferrer" className="btn primary">Надіслати у WhatsApp</a>
+        <a href={tgMsg} target="_blank" rel="noreferrer" className="btn outline">Поділитися у Telegram</a>
+        <a href={`mailto:${email}?subject=${encodeURIComponent("Запит на підбір запчастин")}&body=${encodeURIComponent("Ім’я: "+name+"\nТелефон: "+phone+"\nПотрібно: "+text)}`} className="btn outline">Надіслати на Email</a>
       </div>
-      <div className="flex flex-wrap gap-3">
-        <a href={whatsMsg} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-xl bg-white text-black font-semibold">Надіслати у WhatsApp</a>
-        <a href={tgMsg} target="_blank" rel="noreferrer" className="px-4 py-2 rounded-xl border border-white/20">Поділитися у Telegram</a>
-        <a href={`mailto:${email}?subject=${encodeURIComponent("Запит на підбір запчастин")}&body=${encodeURIComponent("Ім’я: "+name+"\nТелефон: "+phone+"\nПотрібно: "+text)}`} className="px-4 py-2 rounded-xl border border-white/20">Надіслати на Email</a>
-      </div>
-      <p className="text-xs text-white/50">* Реальну адресу сайту та @нік у Telegram можна підставити пізніше. Форма не зберігає дані на сервері (демо).</p>
+      <style jsx>{`
+        .input{background:rgba(255,255,255,.06);border:1px solid #1c1c1f;color:#fff;border-radius:12px;padding:10px 12px;outline:none}
+        .input:focus{border-color:#2c2c31}
+      `}</style>
     </form>
   );
 }
 
-// ---------------- Simple Runtime Tests ----------------
+// ===== Simple Runtime Tests =====
 function DevTests({phones}){
   const cases = [
     { name: "WhatsApp URL формування", got: buildWhatsUrl(phones.main), expect: "https://wa.me/380978436304" },
     { name: "Viber URL формування",   got: buildViberUrl(phones.main),  expect: "viber://chat?number=%2B380978436304" },
     { name: "Telegram-direct (з номером)", got: buildTelegramDirect(phones.main), expect: "https://t.me/+380978436304" },
   ];
-
   return (
-    <div className="max-w-6xl mx-auto px-4 pb-10">
-      <div className="mt-8 rounded-2xl border border-white/10 p-4 text-xs text-white/70">
-        <div className="font-semibold mb-2">DEV TESTS</div>
-        <ul className="grid gap-1">
-          {cases.map((c)=>{
+    <div className="container">
+      <div className="card tiny muted" style={{marginTop:24}}>
+        <div className="brand" style={{fontSize:12, marginBottom:8}}>DEV TESTS</div>
+        <ul>
+          {cases.map(c=>{
             const ok = c.got === c.expect;
-            return (
-              <li key={c.name} className={ok ? "text-green-400" : "text-red-400"}>
-                {ok ? "PASS" : "FAIL"} — {c.name}: <span className="text-white">{c.got}</span> (очікувалось: {c.expect})
-              </li>
-            );
+            return <li key={c.name} style={{color: ok?"#6ee7a8":"#fda4af"}}>{ok?"PASS":"FAIL"} — {c.name}: <span style={{color:'#fff'}}>{c.got}</span> (очікувалось: {c.expect})</li>
           })}
         </ul>
-        <div className="mt-2 text-white/50">* Якщо перейдемо на @username у Telegram — очікування тесту зміниться.</div>
       </div>
     </div>
   );
